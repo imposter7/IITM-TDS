@@ -1,0 +1,12 @@
+def fetch_users(location="Seattle", min_followers=200, per_page=100, page=1):
+    url = f"https://api.github.com/search/users?q=location:{location}+followers:>{min_followers}&per_page={per_page}&page={page}"
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json().get("items", [])  # List of users on this page
+    else:
+        response.raise_for_status()  # Raise an error if the request fails
+
+# Example usage:
+seattle_users = fetch_users()
+print(seattle_users)  # Check the structure of each user item
+
